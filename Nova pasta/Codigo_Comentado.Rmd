@@ -1,0 +1,158 @@
+---
+title: "Código Comentado"
+author: "Fernando Bispo"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  pdf_document:
+    toc: yes
+  html_document:
+    html_document: null
+    highlight: textmate
+    theme: flatly
+    number_sections: yes
+    toc: yes
+    toc_float:
+      collapsed: yes
+      smooth_scroll: no
+---
+
+# Motivação
+O objetivo deste documento é gerar um **passo a passo comentado** da limpeza/tratamento dos dados e elaboração do código para a criação do relatório, a fim de possibilitar em uma consulta futura a análise do código feito e a metodologia que permitiu o sucesso da aplicação de algumas técnicas de programação, bem como avaliar os resultados e obter o entendimento da construção desse código.
+
+
+
+
+# Carregamento de pacotes
+
+```{r Bibliotecas, warning=FALSE, message=FALSE}
+library(dplyr)  
+library(ggplot2) #Criação de gráficos.  
+library(ggrepel) #Estilos de texto nos gráficos.
+library(knitr) #Estruturação de tabelas.
+library(kableExtra) #Estilização de tabelas.
+```
+
+# Importação do BD
+
+Iniciei importando o BD para análise inicial e manipulação dos dados.
+```{r}
+#Código omitido.
+```
+
+```{r Importando os Bancos de Dados, include=FALSE}
+disciplinas_2018_1 <- readr::read_csv2("BD/SABE - Disciplinas 2018.1 e 2018.2/disciplinas_2018_1.csv")  
+disciplinas_2018_2 <- readr::read_csv2("BD/SABE - Disciplinas 2018.1 e 2018.2/disciplinas_2018_2.csv")
+```
+
+Visualizando os Bancos de dados
+```{r Visualização}
+#Banco de dados de 2018.1
+glimpse(disciplinas_2018_1)
+#Banco de dados de 2018.2
+glimpse(disciplinas_2018_2)
+```
+
+# Limpeza e manipulação do BD
+
+Antes de unir os BDs visualizarei os nomes das VAs afim de identificar possíveis divergências.
+
+```{r Visualizando colunas}
+colnames(disciplinas_2018_1)
+colnames(disciplinas_2018_2)
+```
+ 
+Constatei que o nome da variavel Comentários da Disciplina estava diferente nos dois BDs, então renomeei em ambos os BDs e criei a VA **`SEMESTRE`**
+ 
+```{r}
+#Renomeação das VAs.
+disciplinas_2018_1 <- disciplinas_2018_1 %>% 
+  rename(COMENTARIOS_DISC = comentariodisc)
+
+disciplinas_2018_2 <- disciplinas_2018_2 %>% 
+  rename(COMENTARIOS_DISC = comentdisc)
+#Criação da VA SEMESTRE.
+disciplinas_2018_1 <- disciplinas_2018_1 %>% 
+  mutate(SEMESTRE = 2018.1)
+
+disciplinas_2018_2 <- disciplinas_2018_2 %>% 
+  mutate(SEMESTRE = 2018.2)
+```
+
+Após esse procedimento uni os dois BDs
+
+```{r União dos BDs}
+#União dos BDs
+disciplinas_2018 <- full_join(disciplinas_2018_1, disciplinas_2018_2)
+```
+
+Percebi que as variáveis do BD não eram numéricas, então converti as VAs do BD para fator e algumas poucas para caractere.
+
+```{r}
+#Transformação do BD para fator.
+disciplinas_2018 <- disciplinas_2018 %>% 
+  mutate_all(as.factor)
+
+#Transformando algumas variaveis do BD em caractere e alterando o formato de strings.
+disciplinas_2018 <- disciplinas_2018 %>% 
+  mutate(COMENTARIOS_DISC = as.character(COMENTARIOS_DISC),
+         DISCIPLINA = as.character(DISCIPLINA),
+         SITUACAO = stringr::str_to_title(SITUACAO))
+
+glimpse(disciplinas_2018) #Visualização da estrutura.
+```
+
+Identifiquei Variaveis que não trariam informação, então exclui do BD.
+
+```{r Exclusão de VAs}
+disciplinas_2018 <- disciplinas_2018 %>% 
+  select(-ID, -TURMA)
+```
+
+Para poder identificar e mensurar como os alunos avaliam as disciplinas do departamento, categorizei as disciplinas que pertenciam ao departamento e as que não pertencia através da criação da variável `DEPARTAMENTO`.
+
+```{r VA DEPARTMENTO}
+disciplinas_2018 <- disciplinas_2018 %>% 
+  mutate(DEPARTAMENTO = ifelse(DISCIPLINA %in% c("ADM001", "ISCA82", "FCHC45", 
+                                                 "LETA09", "MAT045", "MAT174", 
+                                                 "MATE56"), "Não_DEst", "DEst"))
+```
+
+## Visualizando o BD pronto
+Após todas essa manipulações o BD ficou com a seguinte estrutura:
+```{r Visualização do BD}
+kable(head(disciplinas_2018,10), col.names = c("Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10", "Q11", "Q12", "Comentários", "Matrícula", "Disciplina", "Situação", "Semestre", "Departamento")) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+
+```
+
+# Criação de gráficos
+Tentando replicar os gráficos feitos no relatório iniciei com o das disciplinas.
+
+```{r}
+disciplinas_2018 %>%
+  count(DISCIPLINA) %>%
+  # top_n(10, n) %>%  Estou na dúvida se devo listar todas as disciplinas ou apenas as que possuem mais matriculados.
+  mutate(DISCIPLINA = forcats::fct_reorder(DISCIPLINA, n)) %>%
+  ggplot(aes(x = DISCIPLINA)) +
+  geom_col(aes(y = n), show.legend = FALSE) +
+  geom_text(aes(y = n/2, label = n)) +
+  coord_flip()
+
+```
+
+Após ler o relatório que a senhora desenvolveu, tentei replicar um dos gráficos e então surgiu a primeira dúvida: Como inserir os valores das respectivas porcentagens no gráfico de forma a deixalos centralizados nos seus respectivos locais?
+
+```{r}
+disciplinas_2018 %>%  
+  group_by(SEMESTRE) %>% 
+  count(SITUACAO) %>% 
+  mutate(Fr = n/sum(n)*100) %>%
+  ggplot(aes(x = SEMESTRE, y = Fr, fill = SITUACAO)) +
+  geom_col() +
+  geom_text_repel(aes(label = round(Fr,0))) +
+  labs(x = "Semestre", y = "Freqência (%)")
+
+```
+
+
+

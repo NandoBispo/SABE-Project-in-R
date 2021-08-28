@@ -1,0 +1,24 @@
+---
+title: "Relatório SABE Disciplinas"
+author: "Fernando Bispo"
+date: "29/06/2021"
+output: html_document
+---
+
+# Relatório sobre o tratamento do Banco de Dados.  
+
+## Bibliotecas utilizadas
+Para possibilizar a análise segue as bibliotecas utilizadas para o devido tratamento.
+
+```{r}
+library(tidyr)
+```
+
+## Importação do Banco de Dados
+Com o objetivo de iniciar o tratamento do Banco de Dados (BD) é necessário a importação do mesmo em uma variável, possibilitando assim a sua manipulação.
+
+```{r}
+disciplinas_2018_1 <- readr::read_csv2("BD/SABE - Disciplinas 2018.1 e 2018.2/disciplinas_2018_1.csv")  
+disciplinas_2018_2 <- readr::read_csv2("BD/SABE - Disciplinas 2018.1 e 2018.2/disciplinas_2018_2.csv")  
+```
+

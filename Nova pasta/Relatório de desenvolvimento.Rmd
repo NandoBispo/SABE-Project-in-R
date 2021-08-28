@@ -1,0 +1,109 @@
+---
+title: "Dúvida sobre implementação da ferramenta para AED e elaboração de relatório"
+author: "Fernando Bispo"
+date: "02/07/2021"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+# Intrudução
+
+No intuito de refazer os passos de elaboração do relatório confeccionado inicialmente com ferramentas da Microsoft, estou utilizando os conhecimentos adiquiridos até aqui com programação em R a fim de obter proficiência na manipulação da ferramenta. Iniciei a tratativa do banco de dados (BD) fornecido com as respostas do Questionário SABE Disciplinas 2018 e exponho aqui meu desenvolvimento no intuito de obter maiores orientações de como melhorar meu desempenho e auxílio para aplicar a teoria obtida até o momento na faculdade.
+
+## Bicliotecas Utiizadas
+
+```{r}
+library(dplyr)  
+library(ggplot2)  
+library(ggrepel)  
+
+```
+
+## Importação do BD
+
+Iniciei importando o BD para análise inicial e manipulação dos dados.
+
+```{r}
+disciplinas_2018_1 <- readr::read_csv2("BD/SABE - Disciplinas 2018.1 e 2018.2/disciplinas_2018_1.csv")  
+disciplinas_2018_2 <- readr::read_csv2("BD/SABE - Disciplinas 2018.1 e 2018.2/disciplinas_2018_2.csv") 
+
+```
+
+Após importação analisei os nomes das variáveis com o intuito de de juntar os dois BDs e para não haver confusão entre eles criei a variável SEMESTRE para obter essa diferenciação.
+
+```{r}
+colnames(disciplinas_2018_1)
+colnames(disciplinas_2018_2)
+```
+ Constatei que a variavel comentários da disciplina estava com nome diferente, então renomeei em ambos os BDs e criei a VA SEMESTRE
+ 
+```{r}
+ 
+disciplinas_2018_1 <- disciplinas_2018_1 %>% 
+  rename(COMENTARIOS_DISC = comentariodisc)
+
+disciplinas_2018_2 <- disciplinas_2018_2 %>% 
+  rename(COMENTARIOS_DISC = comentdisc)
+
+disciplinas_2018_1 <- disciplinas_2018_1 %>% 
+  mutate(SEMESTRE = 2018.1)
+
+disciplinas_2018_2 <- disciplinas_2018_2 %>% 
+  mutate(SEMESTRE = 2018.2)
+  
+```
+Após esse procedimento uni os dois BDs
+
+```{r}
+disciplinas_2018 <- full_join(disciplinas_2018_1, disciplinas_2018_2)
+
+```
+
+Percebi que as variáveis do BD não eram numéricas, então converti as VAs do BD para fator e algumas poucas para caractere
+
+```{r}
+disciplinas_2018 <- disciplinas_2018 %>% 
+  mutate_all(as.factor)
+
+#Transformando algumas variaveis do BD em caractere e alterando o formato de strings.
+disciplinas_2018 <- disciplinas_2018 %>% 
+  mutate(COMENTARIOS_DISC = as.character(COMENTARIOS_DISC),
+         DISCIPLINA = as.character(DISCIPLINA),
+         SITUACAO = stringr::str_to_title(SITUACAO))
+
+glimpse(disciplinas_2018)
+
+```
+
+## Criação de gráficos
+Tentando replicar os gráficos feitos no relatório iniciei com o das disciplinas.
+
+```{r}
+disciplinas_2018 %>%
+  count(DISCIPLINA) %>%
+  # top_n(10, n) %>%  Estou na dúvida se devo listar todas as disciplinas ou apenas as que possuem mais matriculados.
+  mutate(DISCIPLINA = forcats::fct_reorder(DISCIPLINA, n)) %>%
+  ggplot(aes(x = DISCIPLINA)) +
+  geom_col(aes(y = n), show.legend = FALSE) +
+  geom_text(aes(y = n/2, label = n)) +
+  coord_flip()
+
+```
+
+Após ler o relatório que a senhora desenvolveu, tentei replicar um dos gráficos e então surgiu a primeira dúvida: Como inserir os valores das respectivas porcentagens no gráfico de forma a deixalos centralizados nos seus respectivos locais?
+
+```{r}
+disciplinas_2018 %>%  
+  group_by(SEMESTRE) %>% 
+  count(SITUACAO) %>% 
+  mutate(Fr = n/sum(n)*100) %>%
+  ggplot(aes(x = SEMESTRE, y = Fr, fill = SITUACAO)) +
+  geom_col() +
+  geom_text_repel(aes(label = round(Fr,0))) +
+  labs(x = "Semestre", y = "Freqência (%)")
+
+```
+
+
+

@@ -1,0 +1,379 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Dúvida sobre implementação da ferramenta para AED e elaboração de relatório},
+  pdfauthor={Fernando Bispo},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Dúvida sobre implementação da ferramenta para AED e elaboração de
+relatório}
+\author{Fernando Bispo}
+\date{02/07/2021}
+
+\begin{document}
+\maketitle
+
+\hypertarget{intruduuxe7uxe3o}{%
+\section{Intrudução}\label{intruduuxe7uxe3o}}
+
+No intuito de refazer os passos de elaboração do relatório confeccionado
+inicialmente com ferramentas da Microsoft, estou utilizando os
+conhecimentos adiquiridos até aqui com programação em R a fim de obter
+proficiência na manipulação da ferramenta. Iniciei a tratativa do banco
+de dados (BD) fornecido com as respostas do Questionário SABE
+Disciplinas 2018 e exponho aqui meu desenvolvimento no intuito de obter
+maiores orientações de como melhorar meu desempenho e auxílio para
+aplicar a teoria obtida até o momento na faculdade.
+
+\hypertarget{bicliotecas-utiizadas}{%
+\subsection{Bicliotecas Utiizadas}\label{bicliotecas-utiizadas}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)  }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)  }
+\FunctionTok{library}\NormalTok{(ggrepel)  }
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{importauxe7uxe3o-do-bd}{%
+\subsection{Importação do BD}\label{importauxe7uxe3o-do-bd}}
+
+Iniciei importando o BD para análise inicial e manipulação dos dados.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{disciplinas\_2018\_1 }\OtherTok{\textless{}{-}}\NormalTok{ readr}\SpecialCharTok{::}\FunctionTok{read\_csv2}\NormalTok{(}\StringTok{"BD/SABE {-} Disciplinas 2018.1 e 2018.2/disciplinas\_2018\_1.csv"}\NormalTok{)  }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## i Using '\',\'' as decimal and '\'.\'' as grouping mark. Use `read_delim()` for more control.
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   ID = col_double(),
+##   q1 = col_double(),
+##   q2 = col_double(),
+##   q3 = col_double(),
+##   q4 = col_double(),
+##   q5 = col_double(),
+##   q6 = col_double(),
+##   q7 = col_double(),
+##   q8 = col_double(),
+##   q9 = col_double(),
+##   q10 = col_double(),
+##   q11 = col_double(),
+##   q12 = col_double(),
+##   comentariodisc = col_character(),
+##   MATRICULA = col_double(),
+##   DISCIPLINA = col_character(),
+##   TURMA = col_double(),
+##   SITUACAO = col_character()
+## )
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{disciplinas\_2018\_2 }\OtherTok{\textless{}{-}}\NormalTok{ readr}\SpecialCharTok{::}\FunctionTok{read\_csv2}\NormalTok{(}\StringTok{"BD/SABE {-} Disciplinas 2018.1 e 2018.2/disciplinas\_2018\_2.csv"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## i Using '\',\'' as decimal and '\'.\'' as grouping mark. Use `read_delim()` for more control.
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   ID = col_double(),
+##   q1 = col_double(),
+##   q2 = col_double(),
+##   q3 = col_double(),
+##   q4 = col_double(),
+##   q5 = col_double(),
+##   q6 = col_double(),
+##   q7 = col_double(),
+##   q8 = col_double(),
+##   q9 = col_double(),
+##   q10 = col_double(),
+##   q11 = col_double(),
+##   q12 = col_double(),
+##   comentdisc = col_character(),
+##   MATRICULA = col_double(),
+##   DISCIPLINA = col_character(),
+##   TURMA = col_double(),
+##   SITUACAO = col_character()
+## )
+\end{verbatim}
+
+Após importação analisei os nomes das variáveis com o intuito de de
+juntar os dois BDs e para não haver confusão entre eles criei a variável
+SEMESTRE para obter essa diferenciação.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{colnames}\NormalTok{(disciplinas\_2018\_1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "ID"             "q1"             "q2"             "q3"            
+##  [5] "q4"             "q5"             "q6"             "q7"            
+##  [9] "q8"             "q9"             "q10"            "q11"           
+## [13] "q12"            "comentariodisc" "MATRICULA"      "DISCIPLINA"    
+## [17] "TURMA"          "SITUACAO"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{colnames}\NormalTok{(disciplinas\_2018\_2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "ID"         "q1"         "q2"         "q3"         "q4"        
+##  [6] "q5"         "q6"         "q7"         "q8"         "q9"        
+## [11] "q10"        "q11"        "q12"        "comentdisc" "MATRICULA" 
+## [16] "DISCIPLINA" "TURMA"      "SITUACAO"
+\end{verbatim}
+
+Constatei que a variavel comentários da disciplina estava com nome
+diferente, então renomeei em ambos os BDs e criei a VA SEMESTRE
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{disciplinas\_2018\_1 }\OtherTok{\textless{}{-}}\NormalTok{ disciplinas\_2018\_1 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{COMENTARIOS\_DISC =}\NormalTok{ comentariodisc)}
+
+\NormalTok{disciplinas\_2018\_2 }\OtherTok{\textless{}{-}}\NormalTok{ disciplinas\_2018\_2 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{COMENTARIOS\_DISC =}\NormalTok{ comentdisc)}
+
+\NormalTok{disciplinas\_2018\_1 }\OtherTok{\textless{}{-}}\NormalTok{ disciplinas\_2018\_1 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{SEMESTRE =} \FloatTok{2018.1}\NormalTok{)}
+
+\NormalTok{disciplinas\_2018\_2 }\OtherTok{\textless{}{-}}\NormalTok{ disciplinas\_2018\_2 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{SEMESTRE =} \FloatTok{2018.2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Após esse procedimento uni os dois BDs
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{disciplinas\_2018 }\OtherTok{\textless{}{-}} \FunctionTok{full\_join}\NormalTok{(disciplinas\_2018\_1, disciplinas\_2018\_2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Joining, by = c("ID", "q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10", "q11", "q12", "COMENTARIOS_DISC", "MATRICULA", "DISCIPLINA", "TURMA", "SITUACAO", "SEMESTRE")
+\end{verbatim}
+
+Percebi que as variáveis do BD não eram numéricas, então converti as VAs
+do BD para fator e algumas poucas para caractere
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{disciplinas\_2018 }\OtherTok{\textless{}{-}}\NormalTok{ disciplinas\_2018 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate\_all}\NormalTok{(as.factor)}
+
+\CommentTok{\#Transformando algumas variaveis do BD em caractere e alterando o formato de strings.}
+\NormalTok{disciplinas\_2018 }\OtherTok{\textless{}{-}}\NormalTok{ disciplinas\_2018 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{COMENTARIOS\_DISC =} \FunctionTok{as.character}\NormalTok{(COMENTARIOS\_DISC),}
+         \AttributeTok{DISCIPLINA =} \FunctionTok{as.character}\NormalTok{(DISCIPLINA),}
+         \AttributeTok{SITUACAO =}\NormalTok{ stringr}\SpecialCharTok{::}\FunctionTok{str\_to\_title}\NormalTok{(SITUACAO))}
+
+\FunctionTok{glimpse}\NormalTok{(disciplinas\_2018)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 154
+## Columns: 19
+## $ ID               <fct> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16~
+## $ q1               <fct> 5, 5, 5, 5, 5, 2, 5, 5, 2, 5, 3, 5, 5, 4, 5, 5, 5, 5,~
+## $ q2               <fct> 5, 5, 5, 5, 5, 3, 5, 5, 5, 5, 5, 2, 5, 5, 5, 5, 5, 5,~
+## $ q3               <fct> 5, 5, 5, 5, 2, 4, 5, 5, 3, 5, 1, 5, 5, 5, 5, 5, 5, 5,~
+## $ q4               <fct> 5, 5, 5, 5, 2, 4, 5, 5, 3, 5, 1, 4, 5, 2, 5, 3, 5, 5,~
+## $ q5               <fct> 5, 5, 5, 5, 3, 1, 5, 5, 5, 5, 2, 5, 5, 4, 5, 5, 5, 5,~
+## $ q6               <fct> 5, 5, 5, 5, 3, 4, 5, 5, 3, 5, 2, 4, 5, 3, 5, 4, 5, 5,~
+## $ q7               <fct> 5, 5, 5, 5, 5, 4, 5, 5, 5, 5, 5, 4, 5, 5, 5, 5, 5, 5,~
+## $ q8               <fct> 5, 5, 5, 5, 4, 4, 5, 5, 3, 5, 2, 5, 5, 3, 5, 2, 5, 5,~
+## $ q9               <fct> 5, 5, 5, 5, 5, 2, 5, 5, 5, 5, 2, 5, 5, 5, 5, 5, 5, 5,~
+## $ q10              <fct> 5, 5, 2, 5, 5, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,~
+## $ q11              <fct> 4, 5, 5, 5, 5, 2, 4, 5, 5, 5, 4, 5, 4, 5, 2, 5, 3, 1,~
+## $ q12              <fct> 5, 2, 5, 5, 5, 4, 4, 5, 4, 5, 4, 4, 4, 5, 5, 5, 4, 5,~
+## $ COMENTARIOS_DISC <chr> NA, NA, NA, NA, NA, NA, "Melhor professora !", NA, NA~
+## $ MATRICULA        <fct> 201517019, 217220657, 201517019, 201517019, 217220657~
+## $ DISCIPLINA       <chr> "ISCA82", "MAT229", "MAT045", "MAT224", "MATD43", "MA~
+## $ TURMA            <fct> 90900, 10100, 20200, 10100, 10000, 10000, 10100, 1000~
+## $ SITUACAO         <chr> "Aprovado", "Aprovado", "Aprovado", "Aprovado", "Apro~
+## $ SEMESTRE         <fct> 2018.1, 2018.1, 2018.1, 2018.1, 2018.1, 2018.1, 2018.~
+\end{verbatim}
+
+\hypertarget{criauxe7uxe3o-de-gruxe1ficos}{%
+\subsection{Criação de gráficos}\label{criauxe7uxe3o-de-gruxe1ficos}}
+
+Tentando replicar os gráficos feitos no relatório iniciei com o das
+disciplinas.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{disciplinas\_2018 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{count}\NormalTok{(DISCIPLINA) }\SpecialCharTok{\%\textgreater{}\%}
+  \CommentTok{\# top\_n(10, n) \%\textgreater{}\%  Estou na dúvida se devo listar todas as disciplinas ou apenas as que possuem mais matriculados.}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{DISCIPLINA =}\NormalTok{ forcats}\SpecialCharTok{::}\FunctionTok{fct\_reorder}\NormalTok{(DISCIPLINA, n)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ DISCIPLINA)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ n), }\AttributeTok{show.legend =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ n}\SpecialCharTok{/}\DecValTok{2}\NormalTok{, }\AttributeTok{label =}\NormalTok{ n)) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Relatório-de-desenvolvimento_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+Após ler o relatório que a senhora desenvolveu, tentei replicar um dos
+gráficos e então surgiu a primeira dúvida: Como inserir os valores das
+respectivas porcentagens no gráfico de forma a deixalos centralizados
+nos seus respectivos locais?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{disciplinas\_2018 }\SpecialCharTok{\%\textgreater{}\%}  
+  \FunctionTok{group\_by}\NormalTok{(SEMESTRE) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{count}\NormalTok{(SITUACAO) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Fr =}\NormalTok{ n}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(n)}\SpecialCharTok{*}\DecValTok{100}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ SEMESTRE, }\AttributeTok{y =}\NormalTok{ Fr, }\AttributeTok{fill =}\NormalTok{ SITUACAO)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_text\_repel}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =} \FunctionTok{round}\NormalTok{(Fr,}\DecValTok{0}\NormalTok{))) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Semestre"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Freqência (\%)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Relatório-de-desenvolvimento_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+\end{document}
